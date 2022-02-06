@@ -1,0 +1,7 @@
+# Количество всегда запущенных и ожидающих запроса unoserver
+reserve: 3
+
+# Ключ авторизации
+auth: ""
+
+# sudo apt install default-jre
