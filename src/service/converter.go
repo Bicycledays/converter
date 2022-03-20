@@ -27,7 +27,7 @@ func NewConverter(file string) *Converter {
 	path := varDir + file
 
 	cmd := exec.Command(
-		"libreoffice",
+		"libreoffice7.3",
 		"--headless",
 		"--convert-to",
 		"pdf:calc_pdf_Export",
