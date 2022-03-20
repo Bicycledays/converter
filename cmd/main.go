@@ -1,26 +1,15 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
 	"log"
-	"os/exec"
-	"strings"
+	"sartorius/converter/src/handler"
+	"sartorius/converter/src/server"
 )
 
 func main() {
-	cmd := exec.Command("unoconvert", "--convert-to", "pdf", "var/xlsx.xlsx", "var/result.pdf")
-
-	cmd.Stdin = strings.NewReader("and old falcon")
-
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
-	err := cmd.Run()
-
-	if err != nil {
-		log.Fatal(err)
+	h := &handler.Handler{}
+	srv := new(server.Server)
+	if err := srv.Run("8000", h.InitRoutes()); err != nil {
+		log.Fatalln(err.Error())
 	}
-
-	fmt.Printf("translated phrase: %q\n", out.String())
 }

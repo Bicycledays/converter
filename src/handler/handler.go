@@ -1,11 +1,15 @@
 package handler
 
-import "github.com/bicycledays/converter/src/service"
+import (
+	"github.com/gin-gonic/gin"
+)
 
-type Handler struct {
-	service *service.Service
-}
+type Handler struct{}
 
-func NewHandler(s *service.Service) *Handler {
-	return &Handler{s}
+func (h *Handler) InitRoutes() *gin.Engine {
+	router := gin.New()
+
+	router.POST("/convert", h.convert)
+
+	return router
 }
