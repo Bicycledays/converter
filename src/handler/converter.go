@@ -8,8 +8,7 @@ import (
 )
 
 type Document struct {
-	Path         string `json:"path"`
-	OutputFormat string `json:"outputFormat"`
+	Path string `json:"path"`
 }
 
 func (h *Handler) convert(c *gin.Context) {
@@ -27,7 +26,7 @@ func (h *Handler) convert(c *gin.Context) {
 		return
 	}
 
-	converter := service.NewConverter(doc.OutputFormat, doc.Path)
+	converter := service.NewConverter(doc.Path)
 	convertedFile, err := converter.Convert()
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "convert error", err.Error())

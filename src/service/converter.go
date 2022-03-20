@@ -1,29 +1,55 @@
 package service
 
 import (
+	"fmt"
 	"log"
 	"os/exec"
 )
+
+const (
+	varDir = "/app/var"
+	pdfDir = varDir + "/upload/pdf"
+)
+
+/**
+--convert-to pdf:writer_pdf_Export
+--convert-to pdf:calc_pdf_Export
+--convert-to pdf:draw_pdf_Export
+--convert-to pdf:impress_pdf_Export
+--convert-to pdf:writer_web_pdf_Export
+*/
 
 type Converter struct {
 	*exec.Cmd
 }
 
-func NewConverter(outputFormat, filePath string) *Converter {
-	cmd := exec.Command("libreoffice7.3", "--headless", "--convert-to", outputFormat, filePath)
+func NewConverter(file string) *Converter {
+	path := varDir + file
+
+	cmd := exec.Command(
+		"libreoffice",
+		"--headless",
+		"--convert-to",
+		"pdf:calc_pdf_Export",
+		path,
+		"--outdir",
+		pdfDir,
+	)
+
 	return &Converter{cmd}
 }
 
 func (c *Converter) Convert() (convertedFile string, err error) {
+	fmt.Println(c.Args)
 	output, err := c.CombinedOutput()
 
 	if err != nil {
 		log.Println(err.Error())
 		return "", err
 	} else {
-		log.Println("output", string(output))
+		fmt.Println(string(output))
 	}
 
-	convertedFile = c.Args[5] + c.Args[4]
+	convertedFile = c.Args[4] + ".pdf"
 	return convertedFile, nil
 }
