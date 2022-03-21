@@ -39,17 +39,16 @@ func NewConverter(file string) *Converter {
 	return &Converter{cmd}
 }
 
-func (c *Converter) Convert() (convertedFile string, err error) {
+func (c *Converter) Convert() error {
 	fmt.Println(c.Args)
 	output, err := c.CombinedOutput()
 
 	if err != nil {
 		log.Println(err.Error())
-		return "", err
+		return err
 	} else {
 		fmt.Println(string(output))
 	}
 
-	convertedFile = c.Args[4] + ".pdf"
-	return convertedFile, nil
+	return nil
 }

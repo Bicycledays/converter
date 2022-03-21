@@ -27,13 +27,11 @@ func (h *Handler) convert(c *gin.Context) {
 	}
 
 	converter := service.NewConverter(doc.Path)
-	convertedFile, err := converter.Convert()
+	err = converter.Convert()
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "convert error", err.Error())
 		return
 	}
 
-	newResultResponse(c, map[string]string{
-		"file": convertedFile,
-	})
+	newResponse(c)
 }

@@ -7,14 +7,12 @@ import (
 )
 
 type response struct {
-	Success bool        `json:"success"`
-	Result  interface{} `json:"result"`
+	Success bool `json:"success"`
 }
 
-func newResultResponse(c *gin.Context, result interface{}) {
-	log.Println("response", result)
+func newResponse(c *gin.Context) {
+	log.Println("Success: true")
 	c.JSON(http.StatusOK, response{
 		Success: true,
-		Result:  result,
 	})
 }
