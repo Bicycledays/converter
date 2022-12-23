@@ -6,11 +6,6 @@ import (
 	"os/exec"
 )
 
-const (
-	varDir = "/app/var"
-	pdfDir = varDir + "/upload/pdf"
-)
-
 /**
 --convert-to pdf:writer_pdf_Export
 --convert-to pdf:calc_pdf_Export
@@ -23,17 +18,15 @@ type Converter struct {
 	*exec.Cmd
 }
 
-func NewConverter(file string) *Converter {
-	path := varDir + file
-
+func NewConverter(file string, outputDir string) *Converter {
 	cmd := exec.Command(
-		"libreoffice7.3",
+		"libreoffice",
 		"--headless",
 		"--convert-to",
 		"pdf:calc_pdf_Export",
-		path,
+		file,
 		"--outdir",
-		pdfDir,
+		outputDir,
 	)
 
 	return &Converter{cmd}

@@ -1,0 +1,8 @@
+### POST /convert
+POST http://localhost:8383/convert
+Content-Type: application/json
+
+{
+  "file": "/home/vitaly/PhpstormProjects/saki-erp/public/file/upload/tmp/test.xlsx",
+  "outputDir": "/tmp"
+}

@@ -3,3 +3,4 @@
 /cmd/main
 /go.sum
 /.idea
+/cmd/converter
